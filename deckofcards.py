@@ -1,5 +1,8 @@
 import requests
 import json
+from urllib.request import urlopen
+from PIL import Image
+import io
 from pprint import pprint
 
 shuffled = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
@@ -39,6 +42,14 @@ cards = json.loads(drawresponse.text)
 #for cardsdrew in cards:
 print(json.dumps(cards, sort_keys=True, indent=4))
 #pprint(cards)
+card1 = requests.get(cards['cards'][0]['images']['png'])
+card2 = requests.get(cards['cards'][1]['images']['png'])
+card1_file = io.BytesIO(card1.content)
+card2_file = io.BytesIO(card2.content)
+card1_image = Image.open(card1_file)
+card2_image = Image.open(card2_file)
+card1_image.show()
+card2_image.show()
 print("You drew a " + cards['cards'][0]['value'] + " of " + cards['cards'][0]['suit'] + " and a " + cards['cards'][1]['value'] + " of " + cards['cards'][1]['suit'])
 
 shuffle_answer = input(str("Do you want to reshuffle? (y or n)"))
