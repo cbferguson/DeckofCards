@@ -10,6 +10,7 @@ except ImportError:
     import tkinter as tk
     from urllib.request import urlopen, Request
 
+
 #number of decks
 deckcount = 6
 
